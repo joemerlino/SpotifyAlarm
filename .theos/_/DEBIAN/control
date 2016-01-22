@@ -1,0 +1,10 @@
+Package: com.joemerlino.spotifyalarm
+Name: SpotifyAlarm
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: Joe Merlino
+Author: Joe Merlino
+Section: Tweaks
+Version: 0.0.1-1
+Installed-Size: 264
