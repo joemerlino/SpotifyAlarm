@@ -3,9 +3,10 @@ static BOOL enabled, fired;
 
 %hook SBClockDataProvider
 - (_Bool)_isAlarmNotification:(id)arg1{
-	if(songLink && fired){
+	if(fired){
 		fired = NO;
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"spotify://spotify:track:" stringByAppendingString:[songLink substringFromIndex:31]]]];
+		if(enabled && songLink)
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"spotify://spotify:track:" stringByAppendingString:[songLink substringFromIndex:31]]]];
 	}
 	return %orig;
 }
@@ -23,9 +24,14 @@ static void alarmFired(CFNotificationCenterRef center,
 
 static void PreferencesCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
-	NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.joemerlino.spotifyalarm.plist"];
-	songLink = [prefs objectForKey:@"link"];
 	CFPreferencesAppSynchronize(CFSTR("com.joemerlino.spotifyalarm"));
+	//need to wait for the plist to store the new prefs
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+		NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.joemerlino.spotifyalarm.plist"];
+		songLink = [prefs objectForKey:@"link"];
+		enabled = ([prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : YES);
+		NSLog(@"[SpotifyAlarm] %d %@", enabled, songLink);	
+	});
 }
 
 %ctor
@@ -35,8 +41,7 @@ static void PreferencesCallback(CFNotificationCenterRef center, void *observer, 
 	enabled = ([prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : YES);
 	songLink = [prefs objectForKey:@"link"];
 	NSLog(@"[SpotifyAlarm] %d %@", enabled, songLink);
-	if(enabled)
-		%init();
+	%init();
   	/* subscribe to alarm notifications */
 	CFNotificationCenterAddObserver(CFNotificationCenterGetLocalCenter(), //center
                                     NULL, // observer

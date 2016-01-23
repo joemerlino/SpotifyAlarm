@@ -1,9 +1,9 @@
 Package: com.joemerlino.spotifyalarm
 Name: SpotifyAlarm
-Depends: mobilesubstrate
+Depends: mobilesubstrate, firmware (>= 8.0)
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: Wakes you up with your favourite Spotify song.
 Maintainer: Joe Merlino
 Author: Joe Merlino
 Section: Tweaks

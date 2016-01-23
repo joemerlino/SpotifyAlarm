@@ -39,22 +39,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>footerText</key>
-			<string>Enabling or disabling the tweak requires a respring.</string>
-		</dict>
-		<dict>
-			<key>action</key>
-			<string>respring</string>
-			<key>alignment</key>
-			<string>center</string>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>Respring</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
 		</dict>
 		<dict>
 			<key>action</key>

@@ -27,7 +27,5 @@
 	-(void) sendEmail{
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:merlino.giuseppe1@gmail.com?subject=SpotifyAlarm"]];
 	}
-	-(void) respring{
-		system("killall -9 SpringBoard");
-	}
+	
 @end
