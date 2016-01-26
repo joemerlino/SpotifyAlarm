@@ -15,7 +15,7 @@
 		<key>isController</key>
 		<true/>
 		<key>label</key>
-		<string>SpotifyAlarm</string>
+		<string>SpotAlarm</string>
 	</dict>
 </dict>
 </plist>

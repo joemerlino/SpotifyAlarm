@@ -1,5 +1,5 @@
 Package: com.joemerlino.spotifyalarm
-Name: SpotifyAlarm
+Name: SpotAlarm
 Depends: mobilesubstrate, firmware (>= 8.0)
 Version: 0.0.1
 Architecture: iphoneos-arm
